@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SampleApplication</string>
+    <string name="receive_colors_transitions">receive colors transitions</string>
+    <string name="Coloring">TextView</string>
+</resources>
