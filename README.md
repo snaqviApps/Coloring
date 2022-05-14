@@ -1,2 +1,3 @@
 # Coloring
-![Screenshot_1652570170](https://user-images.githubusercontent.com/16334260/168451020-436da03d-22d4-4baa-8b9a-8ec0d703db01.png)
+![Screenshot_1652570514](https://user-images.githubusercontent.com/16334260/168451106-4b85bb42-32bb-4f1c-9e36-8adc5a4140d0.png)
+
