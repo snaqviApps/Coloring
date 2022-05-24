@@ -1,4 +1,4 @@
-package ghar.dfw.sampleapplication.di
+package ghar.dfw.coloringschools.di
 
 import dagger.Module
 import dagger.Provides

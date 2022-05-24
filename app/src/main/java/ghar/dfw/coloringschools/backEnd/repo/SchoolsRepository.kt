@@ -1,20 +1,19 @@
-package ghar.dfw.sampleapplication.backEnd.repo
+package ghar.dfw.coloringschools.backEnd.repo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ghar.dfw.sampleapplication.Constants.CoreConstants.Companion.MAX_TIME_OUT
-import ghar.dfw.sampleapplication.Constants.CoreConstants.Companion.SCHOOLS_BASE_URL
-import ghar.dfw.sampleapplication.backEnd.model.SchoolScores
-import ghar.dfw.sampleapplication.backEnd.model.SchoolsBasicInfo
-import ghar.dfw.sampleapplication.di.DaggerComponentsGraph
-import ghar.dfw.sampleapplication.di.SchoolApi
-import ghar.dfw.sampleapplication.di.SchoolsModule
-import ghar.dfw.sampleapplication.view.viewmodels.SchoolViewModel
+import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.MAX_TIME_OUT
+import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.SCHOOLS_BASE_URL
+import ghar.dfw.coloringschools.backEnd.model.SchoolScores
+import ghar.dfw.coloringschools.backEnd.model.SchoolsBasicInfo
+import ghar.dfw.coloringschools.di.DaggerComponentsGraph
+import ghar.dfw.coloringschools.di.SchoolApi
+import ghar.dfw.coloringschools.di.SchoolsModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import retrofit2.Retrofit
-import retrofit2.create
 import javax.inject.Inject
 
 //open class SchoolsRepository(schoolViewModel : SchoolViewModel) {
@@ -45,9 +44,13 @@ class SchoolsRepository {
         try {
           val schoolsInfo = schoolsApi.getSchools()
           val schoolScore = schoolsApi.getScores()
-          _schoolsApiCallResponse.postValue(
-            UIState.SuccessState(schools = schoolsInfo, scores = schoolScore)
-          )
+          if(!schoolsInfo.isNullOrEmpty() && schoolScore.isNotEmpty()) {
+            Log.d("in-repo: ",  "${schoolsInfo[5].schoolName}")
+            _schoolsApiCallResponse.postValue(UIState.SuccessState(schools = schoolsInfo,
+              scores = schoolScore))
+          }else{
+            _schoolsApiCallResponse.postValue(UIState.ErrorState("data retrieval error"))
+          }
 
         }catch (exception : Exception){
           exception.message.let {

@@ -2,4 +2,8 @@
     <string name="app_name">Coloring_Schools</string>
     <string name="receive_colors_transitions">receive colors transitions</string>
     <string name="Coloring">Color me</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="some_text">schools</string>
+    <string name="show_details">Details</string>
 </resources>

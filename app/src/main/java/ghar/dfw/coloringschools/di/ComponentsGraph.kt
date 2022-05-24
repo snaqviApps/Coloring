@@ -1,8 +1,7 @@
-package ghar.dfw.sampleapplication.di
+package ghar.dfw.coloringschools.di
 
 import dagger.Component
-import ghar.dfw.sampleapplication.backEnd.repo.SchoolsRepository
-import ghar.dfw.sampleapplication.view.viewmodels.SchoolViewModel
+import ghar.dfw.coloringschools.backEnd.repo.SchoolsRepository
 
 @Component(modules = [SchoolsModule::class])
 interface ComponentsGraph {

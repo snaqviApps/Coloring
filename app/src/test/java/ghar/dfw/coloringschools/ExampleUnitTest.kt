@@ -1,4 +1,4 @@
-package ghar.dfw.sampleapplication
+package ghar.dfw.coloringschools
 
 import org.junit.Test
 

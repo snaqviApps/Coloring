@@ -1,4 +1,4 @@
-package ghar.dfw.sampleapplication.backEnd.model
+package ghar.dfw.coloringschools.backEnd.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
