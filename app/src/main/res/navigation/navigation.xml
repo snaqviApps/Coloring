@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation.xml"
     app:startDestination="@id/schoolMainFragment">
 
     <fragment
         android:id="@+id/schoolMainFragment"
         android:name="ghar.dfw.coloringschools.view.ui.SchoolMainFragment"
-        android:label="SchoolMainFragment" />
+        android:label="SchoolMainFragment" >
+        <action
+            android:id="@+id/action_schoolMainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/schoolMainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="ghar.dfw.coloringschools.view.ui.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="schoolName_sent"
+            app:argType="string"
+            android:defaultValue="dummy_school_name" />
+        <action
+            android:id="@+id/action_detailsFragment_to_schoolMainFragment"
+            app:destination="@id/schoolMainFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/schoolMainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

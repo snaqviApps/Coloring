@@ -8,11 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ghar.dfw.coloringschools.R
 import ghar.dfw.coloringschools.backEnd.model.SchoolScores
 import ghar.dfw.coloringschools.backEnd.model.SchoolsBasicInfo
-import ghar.dfw.coloringschools.backEnd.repo.UIState
+import ghar.dfw.coloringschools.backEnd.repo.SchoolsRepository
 import ghar.dfw.coloringschools.databinding.FragmentSchoolMainBinding
 import ghar.dfw.coloringschools.utils.safeLet
 import ghar.dfw.coloringschools.view.adapter.SchoolsMainAdapter
@@ -26,7 +26,6 @@ class SchoolMainFragment : Fragment() {
   private lateinit var viewModel: SchoolViewModel
   private lateinit var binding: FragmentSchoolMainBinding
 
-
   override fun onCreateView(inflater: LayoutInflater,
                             container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -36,38 +35,41 @@ class SchoolMainFragment : Fragment() {
 
     setupRV()
     getSchoolData()
+    navigate(viewModel)
 
-    //    return super.onCreateView(inflater, container, savedInstanceState)    // manual creation of Fragment
-    return inflater.inflate(R.layout.fragment_school_main, container, false)
+    //    return super.onCreateView(inflater, container, savedInstanceState)            // manual creation of Fragment
+    //    return inflater.inflate(R.layout.fragment_school_main, container, false)
+    return binding.root
+  }
+
+  private fun navigate(viewModel: SchoolViewModel) {
+    viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer { schoolClicked ->
+//      if (schoolClicked.isNullOrEmpty()) {
+      findNavController().navigate(SchoolMainFragmentDirections.actionSchoolMainFragmentToDetailsFragment(
+          schoolClicked!!))
+    })
   }
 
   private fun setupRV() {
     binding.rVSchools.layoutManager = LinearLayoutManager(requireContext())
-    binding.mainXmlViewModel = viewModel
+//    binding.mainXmlViewModel = viewModel
     /** sending data back to UI, check if 'this' is correct
      * and "requireActivity()" is not needed that would provide the FragmentActivity, that this Fragment is associated with
      */
-//    binding.lifecycleOwner = this
+    binding.lifecycleOwner = viewLifecycleOwner
   }
 
 
   private fun getSchoolData() {
 //    viewModel.schoolsData.observe(this, Observer {state ->          //activity implementation (opp to current / Fragment based)
     viewModel.schoolsData.observe(viewLifecycleOwner, Observer { state ->
-      when(state) {
-        is UIState.EmptyState -> {
+      when (state) {
+        is SchoolsRepository.UIState.EmptyState -> {}
+        is SchoolsRepository.UIState.SuccessState -> {
 
-        }
-        is UIState.SuccessState -> {
-
-          // RView populated
+          // RView populating
           val schools = state.schools
           val scores = state.scores
-
-          val schoolsSample = state.schools?.toList()?.get(0)?.censusTract
-          val scoresSample = state.scores?.toList()?.get(0)?.schoolName
-          Toast.makeText(activity, "Schools: $schoolsSample\n, score-for-school: $scoresSample", Toast.LENGTH_LONG)
-            .show()
 
           val sortedSchoolsList = schools?.sortedWith(compareBy { it.schoolName })
           val sortedScoresList = scores?.sortedWith(compareBy { it.schoolName })
@@ -82,22 +84,20 @@ class SchoolMainFragment : Fragment() {
             }
           }
 
-          safeLet(schoolMatchedList, scoreMatchedList) { safeSchools, safeScores ->
-//          safeLet(schoolMatchedList, scoreMatchedList) { safeSchools, _ ->
-            val adapter = SchoolsMainAdapter(safeSchools, safeScores,
-              SchoolsMainAdapter.SchoolsBasicInfoListener { school ->
+          safeLet(schoolMatchedList, scoreMatchedList) { safeSchools, _ ->
+            val adapter = SchoolsMainAdapter(safeSchools,
+              SchoolsMainAdapter.SchoolsBasicInfoListener { schoolName ->
                 run {
-                  viewModel.schoolClicked(school)
+                  viewModel.schoolClicked(schoolName)
                 }
               })
             binding.rVSchools.adapter = adapter
           }
-          // RView populated-ENDS
+          // RView populating ENDS here
 
         }
-        is UIState.ErrorState -> {
-          Toast.makeText(activity, "Error: ${state.error}", Toast.LENGTH_LONG)
-            .show()
+        is SchoolsRepository.UIState.ErrorState -> {
+          Toast.makeText(activity, "Error: ${state.error}", Toast.LENGTH_LONG).show()
         }
       }
     })

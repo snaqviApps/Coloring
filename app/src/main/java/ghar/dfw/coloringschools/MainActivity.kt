@@ -3,6 +3,7 @@ package ghar.dfw.coloringschools
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
 import android.widget.SeekBar
 import android.widget.TextView
 
@@ -23,12 +24,12 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-//    tvTarget = findViewById(R.id.tvTarget)
-//
-//    colorController = findViewById(R.id.seekBar)
-//    colorGreenController = findViewById(R.id.seekBarGreen)
-//    colorBlueController = findViewById(R.id.seekBarBlue)
-//    changColor()
+    tvTarget = findViewById(R.id.tvTarget)
+    
+    colorController = findViewById(R.id.seekBar)
+    colorGreenController = findViewById(R.id.seekBarGreen)
+    colorBlueController = findViewById(R.id.seekBarBlue)
+    changColor()
 
   }
 

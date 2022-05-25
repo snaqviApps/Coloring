@@ -6,4 +6,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="some_text">schools</string>
     <string name="show_details">Details</string>
+    <string name="writing">writing</string>
+    <string name="critical_readingAve_text">critical reading score</string>
+    <string name="critical_readingAve_label">reading</string>
+    <string name="math_score">Math score</string>
+    <string name="received_school_name">received school Name</string>
+    <string name="back_to_pavillion">Back to Pavillion</string>
 </resources>

@@ -1,7 +1,7 @@
 package ghar.dfw.coloringschools.di
 
-import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.SCHOOLS_END_POINT
-import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.SCORES_END_POINT
+import ghar.dfw.coloringschools.constants.CoreConstants.Companion.SCHOOLS_END_POINT
+import ghar.dfw.coloringschools.constants.CoreConstants.Companion.SCORES_END_POINT
 import ghar.dfw.coloringschools.backEnd.model.SchoolScores
 import ghar.dfw.coloringschools.backEnd.model.SchoolsBasicInfo
 import retrofit2.http.GET

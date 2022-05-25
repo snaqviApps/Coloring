@@ -3,8 +3,8 @@ package ghar.dfw.coloringschools.backEnd.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.MAX_TIME_OUT
-import ghar.dfw.coloringschools.Constants.CoreConstants.Companion.SCHOOLS_BASE_URL
+import ghar.dfw.coloringschools.constants.CoreConstants.Companion.MAX_TIME_OUT
+import ghar.dfw.coloringschools.constants.CoreConstants.Companion.SCHOOLS_BASE_URL
 import ghar.dfw.coloringschools.backEnd.model.SchoolScores
 import ghar.dfw.coloringschools.backEnd.model.SchoolsBasicInfo
 import ghar.dfw.coloringschools.di.DaggerComponentsGraph
@@ -16,7 +16,6 @@ import kotlinx.coroutines.withTimeout
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-//open class SchoolsRepository(schoolViewModel : SchoolViewModel) {
 class SchoolsRepository {
 
   private val _schoolsApiCallResponse = MutableLiveData<UIState>()
@@ -33,7 +32,6 @@ class SchoolsRepository {
     .build()
 
   init {
-//    schoolsGraph.inject(schoolViewModel)
     schoolsGraph.inject(this)
     schoolsApi = retrofit.create(SchoolApi::class.java)
   }
@@ -61,17 +59,16 @@ class SchoolsRepository {
     }
   }
 
-}
-
-sealed class UIState {
-  object EmptyState : UIState()
-  class SuccessState (
-    val schools: List<SchoolsBasicInfo>?,
-    val scores: List<SchoolScores>?
-  ) : UIState()
-
-  class ErrorState(val error : String) : UIState()
-
+  sealed class UIState {
+    object EmptyState : UIState()
+    class SuccessState (
+      val schools: List<SchoolsBasicInfo>?,
+      val scores: List<SchoolScores>?
+    ) : UIState()
+    class ErrorState(val error : String) : UIState()
+  }
 
 }
+
+
 

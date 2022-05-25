@@ -1,24 +1,21 @@
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
-            name="itemXmlViewModel"
-            type="ghar.dfw.coloringschools.view.viewmodels.SchoolViewModel" />
-               <variable
-                   name="clickListener"
-                   type="ghar.dfw.coloringschools.view.adapter.SchoolsMainAdapter.SchoolsBasicInfoListener" />
+            name="clickListener"
+            type="ghar.dfw.coloringschools.view.adapter.SchoolsMainAdapter.SchoolsBasicInfoListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:layout_margin="8dp"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,32 +25,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:padding="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:outlineSpotShadowColor="@color/cardview_shadow_start_color"
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/mTextViewSchoolName"
-                    android:layout_width="0dp"
+                    android:layout_width="186dp"
                     android:layout_height="37dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/some_text"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
+                    android:text="@string/some_text"
                     android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/buToDetails"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="14dp"
-                    android:onClick="@{() -> clickListener.onClick()}"
-                    android:layout_weight="0.5"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:onClick="@{()-> clickListener.onClick(mTextViewSchoolName)}"
                     android:text="@string/show_details"
-                    android:textSize="10sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
 
