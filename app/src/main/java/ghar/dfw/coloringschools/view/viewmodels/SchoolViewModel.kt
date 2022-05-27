@@ -10,18 +10,18 @@ import kotlinx.coroutines.launch
 class SchoolViewModel : ViewModel() {
 
   var schoolsData: LiveData<SchoolsRepository.UIState>
-  private var schoolsRepository : SchoolsRepository = SchoolsRepository()
+  private var schoolsRepository: SchoolsRepository = SchoolsRepository()
 
   init {
     prepareSchoolData()
-  schoolsData = schoolsRepository.schoolsApiCallResponse
-}
+    schoolsData = schoolsRepository.schoolsApiCallResponse
+  }
 
-   private fun prepareSchoolData() {
+  private fun prepareSchoolData() {
     viewModelScope.launch {
       schoolsRepository.networkCall()
     }
-   }
+  }
 
   fun schoolClicked(name: String?) {
     _navigateToDetailsFragment.value = name

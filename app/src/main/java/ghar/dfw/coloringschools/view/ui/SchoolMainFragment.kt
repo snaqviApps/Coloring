@@ -20,9 +20,6 @@ import ghar.dfw.coloringschools.view.viewmodels.SchoolViewModel
 
 class SchoolMainFragment : Fragment() {
 
-  private var schoolMatchedList = ArrayList<SchoolsBasicInfo>()
-  private var scoreMatchedList = ArrayList<SchoolScores>()
-
   private lateinit var viewModel: SchoolViewModel
   private lateinit var binding: FragmentSchoolMainBinding
 
@@ -36,55 +33,34 @@ class SchoolMainFragment : Fragment() {
     setupRV()
     getSchoolData()
     navigate(viewModel)
-
-    //    return super.onCreateView(inflater, container, savedInstanceState)            // manual creation of Fragment
-    //    return inflater.inflate(R.layout.fragment_school_main, container, false)
     return binding.root
   }
 
   private fun navigate(viewModel: SchoolViewModel) {
     viewModel.navigateToDetailsFragment.observe(viewLifecycleOwner, Observer { schoolClicked ->
-//      if (schoolClicked.isNullOrEmpty()) {
       findNavController().navigate(SchoolMainFragmentDirections.actionSchoolMainFragmentToDetailsFragment(
-          schoolClicked!!))
+        schoolClicked!!))
     })
   }
 
   private fun setupRV() {
     binding.rVSchools.layoutManager = LinearLayoutManager(requireContext())
-//    binding.mainXmlViewModel = viewModel
+    binding.mainXmlViewModel = viewModel
+
     /** sending data back to UI, check if 'this' is correct
      * and "requireActivity()" is not needed that would provide the FragmentActivity, that this Fragment is associated with
      */
     binding.lifecycleOwner = viewLifecycleOwner
   }
 
-
   private fun getSchoolData() {
-//    viewModel.schoolsData.observe(this, Observer {state ->          //activity implementation (opp to current / Fragment based)
     viewModel.schoolsData.observe(viewLifecycleOwner, Observer { state ->
       when (state) {
         is SchoolsRepository.UIState.EmptyState -> {}
         is SchoolsRepository.UIState.SuccessState -> {
-
-          // RView populating
           val schools = state.schools
-          val scores = state.scores
-
           val sortedSchoolsList = schools?.sortedWith(compareBy { it.schoolName })
-          val sortedScoresList = scores?.sortedWith(compareBy { it.schoolName })
-
-          for (school in sortedSchoolsList!!) {
-            sortedScoresList?.forEach {
-              if (it.schoolName?.replace("\\s", "")?.lowercase()
-                  .equals(school.schoolName?.replace("\\s", "")?.lowercase())) {
-                schoolMatchedList.add(school)
-                scoreMatchedList.add(it)
-              }
-            }
-          }
-
-          safeLet(schoolMatchedList, scoreMatchedList) { safeSchools, _ ->
+          safeLet(sortedSchoolsList) { safeSchools ->
             val adapter = SchoolsMainAdapter(safeSchools,
               SchoolsMainAdapter.SchoolsBasicInfoListener { schoolName ->
                 run {
@@ -93,8 +69,6 @@ class SchoolMainFragment : Fragment() {
               })
             binding.rVSchools.adapter = adapter
           }
-          // RView populating ENDS here
-
         }
         is SchoolsRepository.UIState.ErrorState -> {
           Toast.makeText(activity, "Error: ${state.error}", Toast.LENGTH_LONG).show()
@@ -102,5 +76,6 @@ class SchoolMainFragment : Fragment() {
       }
     })
   }
+
 
 }

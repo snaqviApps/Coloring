@@ -19,17 +19,16 @@ import javax.inject.Inject
 class SchoolsRepository {
 
   private val _schoolsApiCallResponse = MutableLiveData<UIState>()
-  val schoolsApiCallResponse : LiveData<UIState>
+  val schoolsApiCallResponse: LiveData<UIState>
     get() = _schoolsApiCallResponse
 
   @Inject
   lateinit var retrofit: Retrofit
 
   var schoolsApi: SchoolApi
-  private val schoolsGraph = DaggerComponentsGraph
-    .builder()
-    .networkModule(schoolsModule = SchoolsModule(SCHOOLS_BASE_URL))
-    .build()
+  private val schoolsGraph =
+    DaggerComponentsGraph.builder().networkModule(schoolsModule = SchoolsModule(SCHOOLS_BASE_URL))
+      .build()
 
   init {
     schoolsGraph.inject(this)
@@ -37,20 +36,20 @@ class SchoolsRepository {
   }
 
   suspend fun networkCall() {
-    withContext(Dispatchers.IO){
-      withTimeout(MAX_TIME_OUT){
+    withContext(Dispatchers.IO) {
+      withTimeout(MAX_TIME_OUT) {
         try {
           val schoolsInfo = schoolsApi.getSchools()
           val schoolScore = schoolsApi.getScores()
-          if(!schoolsInfo.isNullOrEmpty() && schoolScore.isNotEmpty()) {
-            Log.d("in-repo: ",  "${schoolsInfo[5].schoolName}")
+          if (!schoolsInfo.isNullOrEmpty() && schoolScore.isNotEmpty()) {
+            Log.d("in-repo: ", "${schoolsInfo[5].schoolName}")
             _schoolsApiCallResponse.postValue(UIState.SuccessState(schools = schoolsInfo,
               scores = schoolScore))
-          }else{
+          } else {
             _schoolsApiCallResponse.postValue(UIState.ErrorState("data retrieval error"))
           }
 
-        }catch (exception : Exception){
+        } catch (exception: Exception) {
           exception.message.let {
             _schoolsApiCallResponse.postValue(UIState.ErrorState(it!!))
           }
@@ -61,11 +60,10 @@ class SchoolsRepository {
 
   sealed class UIState {
     object EmptyState : UIState()
-    class SuccessState (
-      val schools: List<SchoolsBasicInfo>?,
-      val scores: List<SchoolScores>?
-    ) : UIState()
-    class ErrorState(val error : String) : UIState()
+    class SuccessState(val schools: List<SchoolsBasicInfo>?, val scores: List<SchoolScores>?) :
+      UIState()
+
+    class ErrorState(val error: String) : UIState()
   }
 
 }
