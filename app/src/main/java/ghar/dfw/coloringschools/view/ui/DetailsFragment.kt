@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import ghar.dfw.coloringschools.R
 import ghar.dfw.coloringschools.backEnd.repo.SchoolsRepository
 import ghar.dfw.coloringschools.databinding.FragmentDetailsBinding
 import ghar.dfw.coloringschools.utils.safeLet
 import ghar.dfw.coloringschools.view.viewmodels.SchoolViewModel
+import java.lang.StringBuilder
 
 class DetailsFragment : Fragment() {
 
@@ -35,15 +38,18 @@ class DetailsFragment : Fragment() {
     val schoolNameReceived = getArgs()
     setUpObserver(inDetailedViewModel, schoolNameReceived)
 
-    return binding.root
-  }
+//    NavigationBarView.OnItemReselectedListener {  menuItem ->
+//      when(menuItem.itemId) {
+//        R.id.page_1 -> {
+//          findNavController().navigate(R.id.action_detailsFragment_to_schoolMainFragment)      //details to mainFragment
+//          findNavController().navigateUp()
+////          true
+//        }
+////        else -> {false}
+//      }
+//    }
 
-  private fun getArgs(): String {
-    val schoolNameReceived = DetailsFragmentArgs.fromBundle(requireArguments()).schoolNameSent
-    binding.navBack.setOnClickListener {
-      findNavController().navigate(R.id.schoolMainFragment)
-    }
-    return schoolNameReceived
+    return binding.root
   }
 
   private fun setUpObserver(inDetailedViewModel: SchoolViewModel, schoolNameRcvd: String) {
@@ -55,6 +61,8 @@ class DetailsFragment : Fragment() {
           val scores = detailsState.scores
           val sortedScoresList = scores?.sortedWith(compareBy { it.schoolName })
 
+          binding.tvReceivedSchoolName.visibility = View.VISIBLE
+          binding.tvReceivedSchoolName.text = schoolNameRcvd
           sortedScoresList?.forEach {
             if (it.schoolName?.replace("\\s", "")?.lowercase()
                 .equals(schoolNameRcvd.replace("\\s", "").lowercase())) {
@@ -62,10 +70,6 @@ class DetailsFragment : Fragment() {
               val readingScore = it.readingScore
               val writingScore = it.writingScore
               val mathScore = it.mathScore
-
-              binding.tvReceivedSchoolName.visibility = View.VISIBLE
-              binding.tvReceivedSchoolName.text = schoolNameRcvd
-
               safeLet(mathScore, readingScore, writingScore) { math, reading, writing ->
                 binding.mTextViewMathAvgScore.visibility = View.VISIBLE
                 binding.mTextViewMathAvgScore.text = math
@@ -84,6 +88,18 @@ class DetailsFragment : Fragment() {
       }
     }
   }
+
+  private fun getArgs(): String {
+    val schoolNameReceived = DetailsFragmentArgs.fromBundle(requireArguments()).schoolNameSent
+//    binding.navBack.setOnClickListener {
+//      findNavController().navigate(R.id.action_detailsFragment_to_schoolMainFragment)   //details to mainFragment
+//      findNavController().navigateUp()    // system-back-button (bottom navigation)
+//    }
+
+
+    return schoolNameReceived
+  }
+
 
 }
 

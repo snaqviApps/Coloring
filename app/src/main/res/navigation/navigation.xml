@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation.xml"
+    android:background="@color/material_dynamic_neutral_variant90"
     app:startDestination="@id/schoolMainFragment">
 
     <fragment
@@ -12,6 +13,7 @@
         <action
             android:id="@+id/action_schoolMainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
+            app:launchSingleTop="false"
             app:popUpTo="@id/schoolMainFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -24,11 +26,5 @@
             android:name="schoolName_sent"
             app:argType="string"
             android:defaultValue="dummy_school_name" />
-        <action
-            android:id="@+id/action_detailsFragment_to_schoolMainFragment"
-            app:destination="@id/schoolMainFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/schoolMainFragment"
-            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

@@ -10,13 +10,15 @@ fun <T1 : Any, R : Any> safeLet(p1: T1?, block: (T1) -> R?): R? {
   return if (p1 != null) block(p1) else null
 }
 
-fun <R : Any> safeLet(p1: String?,
+fun <R:Any> safeLet(p1: String?,
                       p2: String?,
                       p3: String?,
-                      block: (String, String, String) -> R?): R? {
-  return if ((p1.toString().isNotEmpty() && p1!!.isDigitsOnly()) && (p2.toString()
-      .isNotEmpty() && p2!!.isDigitsOnly()) && (p3.toString()
-      .isNotEmpty() && p3!!.isDigitsOnly())) block(p1, p2, p3)
+                      block: (String?, String?, String?) -> R?): R? {
+  return if (
+    (p1.toString().isNotEmpty() && p1!!.isDigitsOnly()) &&
+    (p2.toString().isNotEmpty() && p2!!.isDigitsOnly()) &&
+    (p3.toString().isNotEmpty() && p3!!.isDigitsOnly()))
+    block(p1, p2, p3)
   else null
 }
 

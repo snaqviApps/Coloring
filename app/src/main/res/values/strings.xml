@@ -9,7 +9,11 @@
     <string name="writing">writing</string>
     <string name="critical_readingAve_text">critical reading score</string>
     <string name="critical_readingAve_label">reading</string>
+    <string name="bottom_nav_menu_back">Back</string>
     <string name="math_score">Math score</string>
     <string name="received_school_name">received school Name</string>
     <string name="back_to_pavillion">Back to Pavillion</string>
+    <string name="bottom_nav_menu_back2">Back II</string>
+    <string name="bottom_nav_menu_details">Details</string>
+    <string name="bottom_nav_menu_schools">Schools</string>
 </resources>

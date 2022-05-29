@@ -3,9 +3,15 @@ package ghar.dfw.coloringschools
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.navigation.NavAction
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +37,11 @@ class MainActivity : AppCompatActivity() {
     colorBlueController = findViewById(R.id.seekBarBlue)
     changColor()
 
+    val navController = findNavController(R.id.schoolHostFragment)
+    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navBack)
+    bottomNavigationView.setupWithNavController(navController)
+
+    navController.navigateUp()
   }
 
   private fun changColor() {
