@@ -60,8 +60,7 @@ class SchoolsRepository {
 
   sealed class UIState {
     object EmptyState : UIState()
-    class SuccessState(val schools: List<SchoolsBasicInfo>?, val scores: List<SchoolScores>?) :
-      UIState()
+    class SuccessState(val schools: List<SchoolsBasicInfo>?, val scores: List<SchoolScores>?) : UIState()
 
     class ErrorState(val error: String) : UIState()
   }

@@ -10,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ghar.dfw.coloringschools.backEnd.model.SchoolScores
-import ghar.dfw.coloringschools.backEnd.model.SchoolsBasicInfo
 import ghar.dfw.coloringschools.backEnd.repo.SchoolsRepository
 import ghar.dfw.coloringschools.databinding.FragmentSchoolMainBinding
 import ghar.dfw.coloringschools.utils.safeLet

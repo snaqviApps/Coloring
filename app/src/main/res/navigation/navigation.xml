@@ -14,7 +14,7 @@
             android:id="@+id/action_schoolMainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:launchSingleTop="false"
-            app:popUpTo="@id/schoolMainFragment"
+            app:popUpTo="@id/navigation.xml"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -26,5 +26,11 @@
             android:name="schoolName_sent"
             app:argType="string"
             android:defaultValue="dummy_school_name" />
+        <action
+            android:id="@+id/action_detailsFragment_to_schoolMainFragment2"
+            app:destination="@id/schoolMainFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/schoolMainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

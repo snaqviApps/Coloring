@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,10 +39,10 @@ class MainActivity : AppCompatActivity() {
     changColor()
 
     val navController = findNavController(R.id.schoolHostFragment)
-    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navBack)
+    val bottomNavigationView = findViewById<NavigationView>(R.id.navBack)
     bottomNavigationView.setupWithNavController(navController)
 
-    navController.navigateUp()
+//    navController.navigateUp()
   }
 
   private fun changColor() {
