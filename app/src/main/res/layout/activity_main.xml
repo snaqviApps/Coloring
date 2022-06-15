@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_margin="8dp"
     tools:context="ghar.dfw.coloringschools.MainActivity">
 
     <TextView
@@ -115,8 +115,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navBack"
@@ -129,7 +128,7 @@
         <fragment
             android:id="@+id/schoolHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="377dp"
+            android:layout_width="match_parent"
             android:layout_height="354dp"
             android:background="@color/material_dynamic_neutral_variant90"
             app:defaultNavHost="true"
